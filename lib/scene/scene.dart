@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zen_breath/scene/clouds.dart';
 import 'package:flutter_zen_breath/scene/sky.dart';
 import 'package:flutter_zen_breath/scene/sun.dart';
 
@@ -10,9 +11,14 @@ class Scene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sky(
-      child: CustomPaint(
-        painter: Sun(),
-        child: child,
+      child: Stack(
+        children: [
+          CustomPaint(
+            painter: Sun(),
+            child: child,
+          ),
+          Clouds(),
+        ],
       ),
     );
   }
