@@ -15,9 +15,9 @@ class Scene extends StatelessWidget {
         children: [
           CustomPaint(
             painter: Sun(),
-            child: child,
           ),
           Clouds(),
+          child,
         ],
       ),
     );

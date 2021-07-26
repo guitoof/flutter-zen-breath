@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'surfer/surfer.dart';
 import 'scene/scene.dart';
-
-import 'painter.dart';
 
 const _BREATH_IN_DURATION = Duration(seconds: 3);
 
@@ -15,15 +14,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _breathAnimationController;
-  late Animation _sizeAnimation;
+  late Animation _positionAnimation;
 
   @override
   void initState() {
     _breathAnimationController =
         AnimationController(duration: _BREATH_IN_DURATION, vsync: this);
 
-    _sizeAnimation =
-        IntTween(begin: 90, end: 150).animate(_breathAnimationController)
+    _positionAnimation =
+        IntTween(begin: 400, end: 600).animate(_breathAnimationController)
           ..addListener(() {
             setState(() {});
           })
@@ -42,10 +41,14 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Scene(
-        child: Center(
-          child: CustomPaint(
-            painter: Painter(circleRadius: _sizeAnimation.value.toDouble()),
+        child: Surfer(
+          position: Offset(
+            130,
+            _positionAnimation.value.toDouble(),
           ),
+          // ),
+          // child: CustomPaint(
+          //   painter: Painter(circleRadius: _sizeAnimation.value.toDouble()),
         ),
       ),
     );
