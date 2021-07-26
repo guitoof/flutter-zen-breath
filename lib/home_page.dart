@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'scene/background.dart';
 
 import 'painter.dart';
 
@@ -40,9 +41,11 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CustomPaint(
-          painter: Painter(circleRadius: _sizeAnimation.value.toDouble()),
+      body: Background(
+        child: Center(
+          child: CustomPaint(
+            painter: Painter(circleRadius: _sizeAnimation.value.toDouble()),
+          ),
         ),
       ),
     );
