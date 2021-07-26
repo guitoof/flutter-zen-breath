@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'scene/background.dart';
+import 'scene/scene.dart';
 
 import 'painter.dart';
 
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Background(
+      body: Scene(
         child: Center(
           child: CustomPaint(
             painter: Painter(circleRadius: _sizeAnimation.value.toDouble()),
