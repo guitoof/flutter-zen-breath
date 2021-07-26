@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Background extends StatelessWidget {
+class Sky extends StatelessWidget {
   final Widget child;
 
-  Background({required this.child});
+  Sky({required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zen_breath/scene/background.dart';
+import 'package:flutter_zen_breath/scene/sky.dart';
 
 class Scene extends StatelessWidget {
   final Widget child;
@@ -8,6 +8,6 @@ class Scene extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Background(child: child);
+    return Sky(child: child);
   }
 }
