@@ -13,9 +13,7 @@ class Scene extends StatelessWidget {
     return Sky(
       child: Stack(
         children: [
-          CustomPaint(
-            painter: Sun(),
-          ),
+          Sun(),
           Clouds(),
           child,
         ],

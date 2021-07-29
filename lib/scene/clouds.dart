@@ -3,23 +3,30 @@ import 'package:flutter/material.dart';
 class Clouds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cloud1Position =
+        Offset(-30, MediaQuery.of(context).size.height * 0.25);
+    final cloud1Scale = 0.7;
+    final cloud2Position =
+        Offset(-70, MediaQuery.of(context).size.height * 0.35);
+    final cloud2Scale = 0.8;
+
     return Stack(
       children: [
         Positioned(
           child: Image.asset(
             'assets/images/cloud_1.png',
-            scale: 0.7,
+            scale: cloud1Scale,
           ),
-          top: 190,
-          left: -30,
+          top: cloud1Position.dy,
+          left: cloud1Position.dx,
         ),
         Positioned(
           child: Image.asset(
             'assets/images/cloud_2.png',
-            scale: 0.8,
+            scale: cloud2Scale,
           ),
-          top: 280,
-          right: -70,
+          top: cloud2Position.dy,
+          right: cloud2Position.dx,
         ),
       ],
     );
