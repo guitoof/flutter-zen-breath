@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zen_breath/waves/principal_wave.dart';
+import 'package:flutter_zen_breath/waves/second_wave.dart';
 import 'surfer/surfer.dart';
 import 'scene/scene.dart';
 
@@ -17,6 +18,8 @@ class _HomePageState extends State<HomePage>
   late AnimationController _breathAnimationController;
   late Animation _principalWaveAnimation1;
   late Animation _principalWaveAnimation2;
+  late Animation _secondWaveAnimation1;
+  late Animation _secondWaveAnimation2;
 
   @override
   void initState() {
@@ -49,6 +52,32 @@ class _HomePageState extends State<HomePage>
             }
           });
 
+    _secondWaveAnimation1 =
+        IntTween(begin: -250, end: -1275).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
+    _secondWaveAnimation2 =
+        IntTween(begin: 775, end: -250).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
     _breathAnimationController.forward();
     super.initState();
   }
@@ -68,6 +97,18 @@ class _HomePageState extends State<HomePage>
         PrincipalWave(
           position: Offset(
             _principalWaveAnimation2.value.toDouble(),
+            0,
+          ),
+        ),
+        SecondWave(
+          position: Offset(
+            _secondWaveAnimation1.value.toDouble(),
+            0,
+          ),
+        ),
+        SecondWave(
+          position: Offset(
+            _secondWaveAnimation2.value.toDouble(),
             0,
           ),
         ),
