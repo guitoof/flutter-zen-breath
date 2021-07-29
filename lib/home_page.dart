@@ -89,7 +89,18 @@ class _HomePageState extends State<HomePage>
               child: Container(
                 width: _size.width,
                 height: _size.height / 2,
-                color: Colors.blue,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    // Add one stop for each color. Stops should increase from 0 to 1
+                    stops: [0, 1],
+                    colors: [
+                      const Color(0xFF93C5FD),
+                      const Color(0xFF3B82F6),
+                    ],
+                  ),
+                ),
               ),
               clipper:
                   new WaveClipper(_breathAnimationController.value, animList1),
