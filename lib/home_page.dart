@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zen_breath/wave.dart';
+import 'package:flutter_zen_breath/waves/principal_wave.dart';
 import 'surfer/surfer.dart';
 import 'scene/scene.dart';
 
@@ -15,15 +15,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _breathAnimationController;
-  late Animation _positionAnimation1;
-  late Animation _positionAnimation2;
+  late Animation _principalWaveAnimation1;
+  late Animation _principalWaveAnimation2;
 
   @override
   void initState() {
     _breathAnimationController =
         AnimationController(duration: _BREATH_IN_DURATION, vsync: this);
 
-    _positionAnimation1 =
+    _principalWaveAnimation1 =
         IntTween(begin: 0, end: -1025).animate(_breathAnimationController)
           ..addListener(() {
             setState(() {});
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage>
             }
           });
 
-    _positionAnimation2 =
+    _principalWaveAnimation2 =
         IntTween(begin: 1025, end: 0).animate(_breathAnimationController)
           ..addListener(() {
             setState(() {});
@@ -59,18 +59,18 @@ class _HomePageState extends State<HomePage>
         body: Scene(
             child: Stack(
       children: [
-        Wave(
+        PrincipalWave(
           position: Offset(
-            _positionAnimation1.value.toDouble(),
+            _principalWaveAnimation1.value.toDouble(),
             0,
           ),
         ),
-        Wave(
+        PrincipalWave(
           position: Offset(
-            _positionAnimation2.value.toDouble(),
+            _principalWaveAnimation2.value.toDouble(),
             0,
           ),
-        )
+        ),
       ],
     )
 
