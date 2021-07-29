@@ -1,15 +1,23 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Sun extends CustomPainter {
-  final double _size = 100.0;
-  final Offset _position = Offset(150, 200);
-  final Paint _paint = Paint()..color = Color(0xFFFDC099);
+class Sun extends StatelessWidget {
+  final double _size = 150.0;
 
   @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(_position, _size, _paint);
+  Widget build(BuildContext context) {
+    final position = Offset(MediaQuery.of(context).size.width * 0.1,
+        MediaQuery.of(context).size.height * 0.1);
+
+    return Positioned(
+      top: position.dy,
+      left: position.dx,
+      child: Container(
+        width: _size,
+        height: _size,
+        decoration:
+            BoxDecoration(color: Color(0xFFFDC099), shape: BoxShape.circle),
+      ),
+    );
   }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
