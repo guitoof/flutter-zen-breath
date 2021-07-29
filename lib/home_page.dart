@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_zen_breath/waves/principal_wave.dart';
 import 'package:flutter_zen_breath/waves/second_wave.dart';
+import 'package:flutter_zen_breath/waves/third_wave.dart';
 import 'surfer/surfer.dart';
 import 'scene/scene.dart';
 
@@ -20,6 +21,8 @@ class _HomePageState extends State<HomePage>
   late Animation _principalWaveAnimation2;
   late Animation _secondWaveAnimation1;
   late Animation _secondWaveAnimation2;
+  late Animation _thirdWaveAnimation1;
+  late Animation _thirdWaveAnimation2;
 
   @override
   void initState() {
@@ -78,6 +81,32 @@ class _HomePageState extends State<HomePage>
             }
           });
 
+    _thirdWaveAnimation1 =
+        IntTween(begin: -750, end: -1775).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
+    _thirdWaveAnimation2 =
+        IntTween(begin: 275, end: -750).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
     _breathAnimationController.forward();
     super.initState();
   }
@@ -112,6 +141,17 @@ class _HomePageState extends State<HomePage>
             0,
           ),
         ),
+        ThirdWave(
+          position: Offset(
+            _thirdWaveAnimation1.value.toDouble(),
+            0,
+          ),
+        ),
+        ThirdWave(
+            position: Offset(
+          _thirdWaveAnimation2.value.toDouble(),
+          0,
+        ))
       ],
     )
 
