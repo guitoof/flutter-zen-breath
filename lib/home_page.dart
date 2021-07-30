@@ -14,9 +14,10 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController _breathAnimationController;
+  late AnimationController _foregroundWave1AnimationController;
+  late AnimationController _foregroundWave2AnimationController;
   late Animation _principalWaveAnimation1;
   late Animation _principalWaveAnimation2;
   late Animation _secondWaveAnimation1;
@@ -28,6 +29,10 @@ class _HomePageState extends State<HomePage>
   void initState() {
     _breathAnimationController =
         AnimationController(duration: _BREATH_IN_DURATION, vsync: this);
+    _foregroundWave1AnimationController =
+        AnimationController(duration: _BREATH_IN_DURATION * 0.6, vsync: this);
+    _foregroundWave2AnimationController =
+        AnimationController(duration: _BREATH_IN_DURATION * 1.3, vsync: this);
 
     _principalWaveAnimation1 =
         IntTween(begin: 0, end: -1025).animate(_breathAnimationController)
@@ -55,59 +60,61 @@ class _HomePageState extends State<HomePage>
             }
           });
 
-    _secondWaveAnimation1 =
-        IntTween(begin: -250, end: -1275).animate(_breathAnimationController)
+    _secondWaveAnimation1 = IntTween(begin: -250, end: -1275)
+        .animate(_foregroundWave1AnimationController)
           ..addListener(() {
             setState(() {});
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _breathAnimationController.repeat();
+              _foregroundWave1AnimationController.repeat();
             } else if (status == AnimationStatus.dismissed) {
-              _breathAnimationController.forward();
+              _foregroundWave1AnimationController.forward();
             }
           });
 
-    _secondWaveAnimation2 =
-        IntTween(begin: 775, end: -250).animate(_breathAnimationController)
+    _secondWaveAnimation2 = IntTween(begin: 775, end: -250)
+        .animate(_foregroundWave1AnimationController)
           ..addListener(() {
             setState(() {});
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _breathAnimationController.repeat();
+              _foregroundWave1AnimationController.repeat();
             } else if (status == AnimationStatus.dismissed) {
-              _breathAnimationController.forward();
+              _foregroundWave1AnimationController.forward();
             }
           });
 
-    _thirdWaveAnimation1 =
-        IntTween(begin: -750, end: -1775).animate(_breathAnimationController)
+    _thirdWaveAnimation1 = IntTween(begin: -750, end: -1775)
+        .animate(_foregroundWave2AnimationController)
           ..addListener(() {
             setState(() {});
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _breathAnimationController.repeat();
+              _foregroundWave2AnimationController.repeat();
             } else if (status == AnimationStatus.dismissed) {
-              _breathAnimationController.forward();
+              _foregroundWave2AnimationController.forward();
             }
           });
 
-    _thirdWaveAnimation2 =
-        IntTween(begin: 275, end: -750).animate(_breathAnimationController)
+    _thirdWaveAnimation2 = IntTween(begin: 275, end: -750)
+        .animate(_foregroundWave2AnimationController)
           ..addListener(() {
             setState(() {});
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _breathAnimationController.repeat();
+              _foregroundWave2AnimationController.repeat();
             } else if (status == AnimationStatus.dismissed) {
-              _breathAnimationController.forward();
+              _foregroundWave2AnimationController.forward();
             }
           });
 
     _breathAnimationController.forward();
+    _foregroundWave1AnimationController.forward();
+    _foregroundWave2AnimationController.forward();
     super.initState();
   }
 
@@ -161,8 +168,6 @@ class _HomePageState extends State<HomePage>
             //     _positionAnimation.value.toDouble(),
             //   ),
             // ),
-            // child: CustomPaint(
-            //   painter: Painter(circleRadius: _sizeAnimation.value.toDouble()),
             ));
   }
 }
