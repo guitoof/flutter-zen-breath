@@ -18,12 +18,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController _breathAnimationController;
   late AnimationController _foregroundWave1AnimationController;
   late AnimationController _foregroundWave2AnimationController;
+  late AnimationController _surferAnimationController;
   late Animation _principalWaveAnimation1;
   late Animation _principalWaveAnimation2;
   late Animation _secondWaveAnimation1;
   late Animation _secondWaveAnimation2;
   late Animation _thirdWaveAnimation1;
   late Animation _thirdWaveAnimation2;
+  late Animation _surferAnimation;
 
   @override
   void initState() {
@@ -33,6 +35,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         AnimationController(duration: _BREATH_IN_DURATION * 0.6, vsync: this);
     _foregroundWave2AnimationController =
         AnimationController(duration: _BREATH_IN_DURATION * 1.3, vsync: this);
+    _surferAnimationController =
+        AnimationController(duration: _BREATH_IN_DURATION * 0.5, vsync: this);
 
     _principalWaveAnimation1 =
         IntTween(begin: 0, end: -1025).animate(_breathAnimationController)
@@ -112,62 +116,76 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             }
           });
 
+    _surferAnimation =
+        IntTween(begin: 370, end: 610).animate(_surferAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _surferAnimationController.repeat(reverse: true);
+            } else if (status == AnimationStatus.dismissed) {
+              _surferAnimationController.forward();
+            }
+          });
+
     _breathAnimationController.forward();
     _foregroundWave1AnimationController.forward();
     _foregroundWave2AnimationController.forward();
+    _surferAnimationController.forward();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Scene(
-            child: Stack(
-      children: [
-        PrincipalWave(
-          position: Offset(
-            _principalWaveAnimation1.value.toDouble(),
-            0,
-          ),
+      body: Scene(
+        child: Stack(
+          children: [
+            PrincipalWave(
+              position: Offset(
+                _principalWaveAnimation1.value.toDouble(),
+                0,
+              ),
+            ),
+            PrincipalWave(
+              position: Offset(
+                _principalWaveAnimation2.value.toDouble(),
+                0,
+              ),
+            ),
+            Surfer(
+              position: Offset(
+                170,
+                _surferAnimation.value.toDouble(),
+              ),
+            ),
+            SecondWave(
+              position: Offset(
+                _secondWaveAnimation1.value.toDouble(),
+                0,
+              ),
+            ),
+            SecondWave(
+              position: Offset(
+                _secondWaveAnimation2.value.toDouble(),
+                0,
+              ),
+            ),
+            ThirdWave(
+              position: Offset(
+                _thirdWaveAnimation1.value.toDouble(),
+                0,
+              ),
+            ),
+            ThirdWave(
+                position: Offset(
+              _thirdWaveAnimation2.value.toDouble(),
+              0,
+            ))
+          ],
         ),
-        PrincipalWave(
-          position: Offset(
-            _principalWaveAnimation2.value.toDouble(),
-            0,
-          ),
-        ),
-        SecondWave(
-          position: Offset(
-            _secondWaveAnimation1.value.toDouble(),
-            0,
-          ),
-        ),
-        SecondWave(
-          position: Offset(
-            _secondWaveAnimation2.value.toDouble(),
-            0,
-          ),
-        ),
-        ThirdWave(
-          position: Offset(
-            _thirdWaveAnimation1.value.toDouble(),
-            0,
-          ),
-        ),
-        ThirdWave(
-            position: Offset(
-          _thirdWaveAnimation2.value.toDouble(),
-          0,
-        ))
-      ],
-    )
-
-            // child: Surfer(
-            //   position: Offset(
-            //     130,
-            //     _positionAnimation.value.toDouble(),
-            //   ),
-            // ),
-            ));
+      ),
+    );
   }
 }
