@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zen_breath/breath_text/breath_in.dart';
 import 'package:flutter_zen_breath/waves/principal_wave.dart';
 import 'package:flutter_zen_breath/waves/second_wave.dart';
 import 'package:flutter_zen_breath/waves/third_wave.dart';
@@ -158,7 +159,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             position: Offset(
           _thirdWaveAnimation2.value.toDouble(),
           0,
-        ))
+        )),
+        BreathInTextAnimation()
       ],
     )
 
