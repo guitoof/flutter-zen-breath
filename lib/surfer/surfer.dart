@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Surfer extends StatelessWidget {
+class Surfer extends StatefulWidget {
   final Offset position;
-
   Surfer({required this.position});
 
+  SurferState createState() => SurferState();
+}
+
+class SurferState extends State<Surfer> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
       child: Container(
         width: 400,
         height: 400,
-        // alignment: Alignment.center,
         child: Stack(
           overflow: Overflow.visible,
           children: [
@@ -28,8 +30,8 @@ class Surfer extends StatelessWidget {
           ],
         ),
       ),
-      left: position.dx,
-      top: position.dy,
+      left: widget.position.dx,
+      top: widget.position.dy,
     );
   }
 }
