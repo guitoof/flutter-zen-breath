@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zen_breath/wave.dart';
+import 'package:flutter_zen_breath/waves/principal_wave.dart';
+import 'package:flutter_zen_breath/waves/second_wave.dart';
+import 'package:flutter_zen_breath/waves/third_wave.dart';
 import 'surfer/surfer.dart';
 import 'scene/scene.dart';
 
@@ -15,15 +17,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _breathAnimationController;
-  late Animation _positionAnimation1;
-  late Animation _positionAnimation2;
+  late Animation _principalWaveAnimation1;
+  late Animation _principalWaveAnimation2;
+  late Animation _secondWaveAnimation1;
+  late Animation _secondWaveAnimation2;
+  late Animation _thirdWaveAnimation1;
+  late Animation _thirdWaveAnimation2;
 
   @override
   void initState() {
     _breathAnimationController =
         AnimationController(duration: _BREATH_IN_DURATION, vsync: this);
 
-    _positionAnimation1 =
+    _principalWaveAnimation1 =
         IntTween(begin: 0, end: -1025).animate(_breathAnimationController)
           ..addListener(() {
             setState(() {});
@@ -36,8 +42,60 @@ class _HomePageState extends State<HomePage>
             }
           });
 
-    _positionAnimation2 =
+    _principalWaveAnimation2 =
         IntTween(begin: 1025, end: 0).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
+    _secondWaveAnimation1 =
+        IntTween(begin: -250, end: -1275).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
+    _secondWaveAnimation2 =
+        IntTween(begin: 775, end: -250).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
+    _thirdWaveAnimation1 =
+        IntTween(begin: -750, end: -1775).animate(_breathAnimationController)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _breathAnimationController.repeat();
+            } else if (status == AnimationStatus.dismissed) {
+              _breathAnimationController.forward();
+            }
+          });
+
+    _thirdWaveAnimation2 =
+        IntTween(begin: 275, end: -750).animate(_breathAnimationController)
           ..addListener(() {
             setState(() {});
           })
@@ -59,18 +117,41 @@ class _HomePageState extends State<HomePage>
         body: Scene(
             child: Stack(
       children: [
-        Wave(
+        PrincipalWave(
           position: Offset(
-            _positionAnimation1.value.toDouble(),
+            _principalWaveAnimation1.value.toDouble(),
             0,
           ),
         ),
-        Wave(
+        PrincipalWave(
           position: Offset(
-            _positionAnimation2.value.toDouble(),
+            _principalWaveAnimation2.value.toDouble(),
             0,
           ),
-        )
+        ),
+        SecondWave(
+          position: Offset(
+            _secondWaveAnimation1.value.toDouble(),
+            0,
+          ),
+        ),
+        SecondWave(
+          position: Offset(
+            _secondWaveAnimation2.value.toDouble(),
+            0,
+          ),
+        ),
+        ThirdWave(
+          position: Offset(
+            _thirdWaveAnimation1.value.toDouble(),
+            0,
+          ),
+        ),
+        ThirdWave(
+            position: Offset(
+          _thirdWaveAnimation2.value.toDouble(),
+          0,
+        ))
       ],
     )
 

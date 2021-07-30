@@ -2,16 +2,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-class Wave extends StatelessWidget {
+class PrincipalWave extends StatelessWidget {
   final Offset position;
 
-  Wave({required this.position});
+  PrincipalWave({required this.position});
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
       child: CustomPaint(
-        painter: WavePainter(),
+        painter: PrincipalWavePainter(),
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -23,7 +23,7 @@ class Wave extends StatelessWidget {
   }
 }
 
-class WavePainter extends CustomPainter {
+class PrincipalWavePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
@@ -31,7 +31,7 @@ class WavePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round
       ..shader = ui.Gradient.linear(
-        Offset(size.width / 2, 0),
+        Offset(size.width / 2, size.height / 2),
         Offset(size.width / 2, size.height),
         [
           const Color(0xFF93C5FD),
